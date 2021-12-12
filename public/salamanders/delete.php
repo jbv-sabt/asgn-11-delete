@@ -7,7 +7,7 @@ if(!isset($_GET['id'])) {
 
 $id = $_GET['id'];
 
-$subject = find_salamanders_by_id($id);
+$subject = find_salamander_by_id($id);
 
 if(is_post_request()) {
     $sql = "DELETE FROM subjects ";
