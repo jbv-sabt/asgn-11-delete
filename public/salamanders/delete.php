@@ -1,23 +1,23 @@
 <?php require_once('../../private/initialize.php');
 
 if(!isset($_GET['id'])) {
-    redirect_to(url_for('/public/salamanders/index.php'));
+    redirect_to(url_for('index.php'));
 
 }
 
 $id = $_GET['id'];
 
-$subject = find_salamander_by_id($id);
+$salamander = find_salamander_by_id($id);
 
 if(is_post_request()) {
-    $sql = "DELETE FROM subjects ";
+    $sql = "DELETE FROM salamander ";
     $sql .= "WHERE id='" . $id . "' ";
     $sql .= "LIMIT 1";
 
     $result = mysqli_query($db, $sql);
-    //FOR DELETE statemetns, $result is t/f
+    //FOR DELETE statements, $result is t/f
     if($result) {
-        redirect_to(url_for('/public/salamanders/index.php'));
+        redirect_to(url_for('/salamanders/index.php'));
     }
     else
     {
@@ -31,18 +31,20 @@ if(is_post_request()) {
 ?>
 
 <?php $page_title = 'Delete Subject'; ?>
-<?php include(SHARED_PATH . '/salamanderHeader'); ?>
+<?php include(SHARED_PATH . '/salamanderHeader.php'); ?>
+
 
 <div id="content">
 
-    <a class ="back-link" href=<?php echo url_for('/index.php'); ?>">&laquo; Back to list</a>
+    <a href="<?= url_for('/salamanders/index.php'); ?>">&laquo; Back to List</a>
 
-    <div class="salamander delete">
+    <div>
         <h1>Delete Salamander</h1>
         <p>Are you sure you want to delete this salamander entry?</p>
-        <p><?= h($salamander['name']); ?></p>
+        <p>Name:<?= h($salamander['name']) ?></p>
+        <p>ID:<?= h($salamander['id'])?></p>
 
-        <form action="<?= url_for('/salamanders/subjects.php?id=' . h(u($salamander['id']))); ?>" method ="post">
+        <form action="<?= url_for('salamanders/delete.php?id=' . h(u($salamander['id']))) ?>" method ="post">
             <div>
                 <input type="submit" name="commit" value="Delete Subject" />
             </div>
@@ -50,4 +52,4 @@ if(is_post_request()) {
     </div>
 </div>
 
-<?php inlcude(SHARED_PATH . '/private/salamanderFooter.php'); ?>
+<?php include(SHARED_PATH . '/salamanderFooter.php'); ?>
