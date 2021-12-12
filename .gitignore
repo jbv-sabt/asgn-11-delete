@@ -1,4 +1,6 @@
 .DS_Store
 public/.DS_Store
+db_credentials.php
+db-credentials.php
 asgn10-starter-files.zip
 .vscode
